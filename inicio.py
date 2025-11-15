@@ -11,7 +11,7 @@ app.secret_key = 'tu_clave_secreta_aqui'  # ¡IMPORTANTE! Agrega una clave secre
 # ----------------- CONFIGURACIÓN FIREBASE -----------------
 try:
     # Ruta del archivo JSON de credenciales de Firebase
-    firebase_key_path = os.path.join(os.path.dirname(__file__), 'pay-nic-firebase-adminsdk-fbsvc-abd1cf1335.json')
+    firebase_key_path = os.path.join(os.path.dirname(__file__), 'pay-nic-firebase-adminsdk-fbsvc-4de59097dc.json')
 
     # Inicializar Firebase con el archivo JSON
     cred = credentials.Certificate(firebase_key_path)
