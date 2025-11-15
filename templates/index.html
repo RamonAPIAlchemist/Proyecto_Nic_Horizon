@@ -1,0 +1,1049 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inicio - PayNic{% endblock %}
+
+{% block contenido %}
+
+<!-- Carousel -->
+<div id="carouselExample" class="carousel slide carousel-custom" data-bs-ride="carousel" data-bs-interval="3000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{ url_for('static', filename='emprendimiento1.jpg') }}" class="d-block w-100 carousel-img" alt="PayNic Emprendimiento">
+      <div class="carousel-caption-custom">
+        <h3>Impulsa Tu Emprendimiento</h3>
+        <p>Herramientas digitales para emprendedores nicaragüenses</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='emprendimiento2.jpg') }}" class="d-block w-100 carousel-img" alt="Asistente PayNic">
+      <div class="carousel-caption-custom">
+        <h3>Asistente Inteligente</h3>
+        <p>IA que guía tu crecimiento empresarial</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='emprendimiento3.jpg') }}" class="d-block w-100 carousel-img" alt="Comunidad PayNic">
+      <div class="carousel-caption-custom">
+        <h3>Comunidad Colaborativa</h3>
+        <p>Conecta con otros emprendedores locales</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+<!-- Logo de la Empresa -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <div class="logo-container">
+        <div class="company-logo">
+          <div class="logo-image-container">
+            <img src="{{ url_for('static', filename='paynic_logo.png') }}" 
+                 alt="PayNic Logo" 
+                 class="logo-image"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="logo-icon-fallback" style="display: none;">
+              <i class="fas fa-hand-holding-usd logo-icon"></i>
+            </div>
+          </div>
+          <div class="logo-text">
+            <span class="logo-main">PAYNIC</span>
+            <span class="logo-sub">Potenciando Emprendedores Nicaragüenses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sección de Descarga de la App -->
+<div class="container mt-5">
+  <div class="app-download-card">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h3 class="app-download-title">¿Listo para transformar tu emprendimiento?</h3>
+        <p class="app-download-text">
+          Descarga PayNic y accede a herramientas inteligentes para gestionar tu negocio, 
+          conectar con otros emprendedores y recibir asesoramiento financiero personalizado.
+        </p>
+        <div class="app-features">
+          <div class="app-feature-item">
+            <i class="fas fa-check app-feature-icon"></i>
+            <span>Plan de inversión con IA</span>
+          </div>
+          <div class="app-feature-item">
+            <i class="fas fa-check app-feature-icon"></i>
+            <span>Comunidad colaborativa</span>
+          </div>
+          <div class="app-feature-item">
+            <i class="fas fa-check app-feature-icon"></i>
+            <span>Gestión financiera</span>
+          </div>
+        </div>
+        <!-- SOLUCIÓN DEFINITIVA - BOTÓN DE DESCARGA -->
+        <a href="https://drive.google.com/uc?export=download&id=13eb79sD5VbY0WtjwpFWSpW3-xl2rdJgU&confirm=t" 
+           class="btn btn-download-app" 
+           download="PayNic.apk"
+           id="descargaLink">
+          <i class="fas fa-download btn-download-icon"></i>
+          <span>Descargar PayNic</span>
+        </a>
+        <p class="app-note">
+          <small>Descarga directa de la aplicación para Android</small>
+        </p>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="app-phone-mockup">
+          <i class="fas fa-mobile-alt app-phone-icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Resto del contenido permanece igual -->
+<!-- Beneficios Principales -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4 section-title">BENEFICIOS DE PAYNIC</h2>
+  <div class="row">
+    <div class="col-sm-4 mb-4">
+      <div class="card shadow-custom card-hover">
+        <div class="card-header-custom community-header">
+          <i class="fas fa-users card-icon"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Comunidad Colaborativa</h5>
+          <p class="card-text">Conecta con emprendedores locales, comparte experiencias y establece redes de contacto.</p>
+          <div class="learning-points">
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Publicaciones y comentarios</span>
+            </div>
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Reacciones e interacciones</span>
+            </div>
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Vínculos con otros emprendedores</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 mb-4">
+      <div class="card shadow-custom card-hover">
+        <div class="card-header-custom assistant-header">
+          <i class="fas fa-robot card-icon"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Asistente Inteligente</h5>
+          <p class="card-text">Chatbot con IA que ofrece orientación práctica sobre emprendimiento en Nicaragua.</p>
+          <div class="learning-points">
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Consejos de inversión</span>
+            </div>
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Orientación en formalización</span>
+            </div>
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Estrategias de crecimiento</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 mb-4">
+      <div class="card shadow-custom card-hover">
+        <div class="card-header-custom financial-header">
+          <i class="fas fa-chart-line card-icon"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Plan de Inversión con IA</h5>
+          <p class="card-text">Estrategias personalizadas basadas en análisis inteligente de tu situación financiera.</p>
+          <div class="learning-points">
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Análisis de perfil financiero</span>
+            </div>
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Recomendaciones personalizadas</span>
+            </div>
+            <div class="point-item">
+              <i class="fas fa-check point-icon"></i>
+              <span>Seguimiento de resultados</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Funcionalidades Destacadas -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4 section-title">FUNCIONALIDADES CLAVE</h2>
+  <div class="row">
+    <div class="col-sm-6 mb-4">
+      <div class="card service-card shadow-custom card-hover">
+        <div class="card-img-container">
+          <img src="{{ url_for('static', filename='eventos.jpg') }}" class="card-img-top service-img" alt="Programas y Reuniones">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Programas y Reuniones</h5>
+          <p class="card-text">Accede a actividades programadas y conecta con organizadores de eventos empresariales.</p>
+          <div class="service-features">
+            <div class="feature-item">
+              <i class="fas fa-calendar feature-icon"></i>
+              <small>Eventos Activos</small>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-users feature-icon"></i>
+              <small>Confirmación</small>
+            </div>
+          </div>
+          <a href="#" class="btn btn-custom events-btn">
+            <i class="fas fa-calendar-check btn-icon"></i>
+            Ver Eventos
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mb-4">
+      <div class="card service-card shadow-custom card-hover">
+        <div class="card-img-container">
+          <img src="{{ url_for('static', filename='prestamos.jpg') }}" class="card-img-top service-img" alt="Módulo de Préstamos">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Módulo de Préstamos</h5>
+          <p class="card-text">Conecta con instituciones financieras y accede a opciones de financiamiento adaptadas.</p>
+          <div class="service-features">
+            <div class="feature-item">
+              <i class="fas fa-university feature-icon"></i>
+              <small>Múltiples Opciones</small>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-comments feature-icon"></i>
+              <small>Contacto Directo</small>
+            </div>
+          </div>
+          <a href="#" class="btn btn-custom loans-btn">
+            <i class="fas fa-hand-holding-usd btn-icon"></i>
+            Explorar Préstamos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Casos de Éxito -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4 section-title">EXPERIENCIAS DE USUARIOS</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="success-card">
+        <div class="success-avatar">
+          <i class="fas fa-store"></i>
+        </div>
+        <h5>Pequeño Comercio</h5>
+        <p class="success-story">"El plan de inversión me ayudó a identificar nuevas oportunidades de negocio que no había considerado."</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="success-card">
+        <div class="success-avatar">
+          <i class="fas fa-coffee"></i>
+        </div>
+        <h5>Cafetería Local</h5>
+        <p class="success-story">"Optimicé mis compras y reduje desperdicios gracias a las recomendaciones de la aplicación."</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="success-card">
+        <div class="success-avatar">
+          <i class="fas fa-tshirt"></i>
+        </div>
+        <h5>Boutique de Ropa</h5>
+        <p class="success-story">"La comunidad me conectó con proveedores confiables y mejoró mi cadena de suministro."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Impacto y Estadísticas -->
+<div class="container mt-5 mb-5">
+  <div class="impact-card">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h4 class="impact-title">Transformando el Ecosistema Emprendedor</h4>
+        <p class="impact-text">
+          <strong>PayNic</strong> está diseñado específicamente para emprendedores nicaragüenses, 
+          ofreciendo herramientas adaptadas al contexto local y necesidades reales del mercado.
+        </p>
+        <div class="impact-stats">
+          <div class="stat-item">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Emprendedores</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100+</span>
+            <span class="stat-label">Negocios</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">95%</span>
+            <span class="stat-label">Satisfacción</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="impact-icon">
+          <i class="fas fa-seedling"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// SOLUCIÓN DEFINITIVA - Manejo de la descarga
+document.getElementById('descargaLink').addEventListener('click', function(e) {
+    const link = this;
+    const icono = link.querySelector('.btn-download-icon');
+    const texto = link.querySelector('span');
+    
+    // Cambiar apariencia temporalmente para feedback visual
+    if (icono) {
+        const iconoOriginal = icono.className;
+        icono.className = 'fas fa-spinner fa-spin btn-download-icon';
+        
+        // Restaurar después de 3 segundos
+        setTimeout(() => {
+            icono.className = iconoOriginal;
+        }, 3000);
+    }
+    
+    if (texto) {
+        const textoOriginal = texto.textContent;
+        texto.textContent = 'Descargando...';
+        
+        // Restaurar después de 3 segundos
+        setTimeout(() => {
+            texto.textContent = textoOriginal;
+        }, 3000);
+    }
+    
+    // Forzar múltiples métodos de descarga simultáneamente
+    setTimeout(() => {
+        // Método 1: Iframe invisible
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = 'https://drive.google.com/uc?export=download&id=13eb79sD5VbY0WtjwpFWSpW3-xl2rdJgU&confirm=t';
+        document.body.appendChild(iframe);
+        
+        // Método 2: Enlace temporal
+        const linkTemp = document.createElement('a');
+        linkTemp.href = 'https://drive.google.com/uc?export=download&id=13eb79sD5VbY0WtjwpFWSpW3-xl2rdJgU&confirm=t';
+        linkTemp.download = 'PayNic.apk';
+        linkTemp.style.display = 'none';
+        document.body.appendChild(linkTemp);
+        linkTemp.click();
+        document.body.removeChild(linkTemp);
+    }, 100);
+});
+
+// Función de respaldo para forzar descarga
+function forzarDescarga() {
+    // Ejecutar múltiples métodos simultáneamente
+    const fileId = '13eb79sD5VbY0WtjwpFWSpW3-xl2rdJgU';
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}&confirm=t`;
+    
+    // Método 1: Redirección
+    window.location.href = downloadUrl;
+    
+    // Método 2: Nueva ventana
+    setTimeout(() => {
+        window.open(downloadUrl, '_blank');
+    }, 100);
+    
+    // Método 3: Iframe
+    setTimeout(() => {
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = downloadUrl;
+        document.body.appendChild(iframe);
+    }, 200);
+}
+</script>
+
+<style>
+/* Todos los estilos CSS anteriores se mantienen igual */
+/* Paleta de colores EXACTA de Flutter */
+:root {
+  --primary-dark: #16123B;
+  --primary-medium: #1D1750;
+  --accent-blue: #009FE3;
+  --accent-purple: #6C63FF;
+  --text-light: #FFFFFF;
+  --text-gray: #B0B0B0;
+  --card-bg: #FFFFFF;
+  --shadow-color: rgba(22, 18, 59, 0.2);
+}
+
+/* Fondo general inspirado en Flutter */
+body {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+  min-height: 100vh;
+}
+
+/* Carousel personalizado */
+.carousel-custom {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  margin-bottom: 2rem;
+  border: 3px solid var(--primary-medium);
+}
+
+.carousel-img {
+  height: 500px;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.carousel-caption-custom {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  text-align: left;
+  color: var(--text-light);
+}
+
+.carousel-caption-custom h3 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  background: linear-gradient(135deg, var(--text-light), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.carousel-caption-custom p {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  color: var(--text-gray);
+}
+
+/* Logo de la empresa */
+.logo-container {
+  margin: 2rem 0;
+}
+
+.company-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-image-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  border-radius: 15px;
+}
+
+.logo-icon-fallback {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  font-size: 3.5rem;
+  color: var(--accent-blue);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo-main {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.logo-sub {
+  color: var(--text-gray);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Sección de Descarga de App */
+.app-download-card {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: var(--text-light);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 159, 227, 0.3);
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-download-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+}
+
+.app-download-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.app-download-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.app-features {
+  margin-bottom: 2rem;
+}
+
+.app-feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.app-feature-icon {
+  color: var(--text-light);
+  margin-right: 1rem;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.2);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-download-app {
+  background: var(--text-light);
+  color: var(--accent-blue);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-download-app:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+  color: var(--accent-blue);
+}
+
+.btn-download-icon {
+  font-size: 1.3rem;
+}
+
+.app-note {
+  margin-top: 1rem;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+.app-phone-mockup {
+  position: relative;
+}
+
+.app-phone-icon {
+  font-size: 8rem;
+  color: var(--text-light);
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+/* Títulos de sección */
+.section-title {
+  color: var(--text-light);
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  border-radius: 2px;
+}
+
+/* Cards generales */
+.shadow-custom {
+  box-shadow: 0 8px 25px rgba(22, 18, 59, 0.15);
+  border: none;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(22, 18, 59, 0.25);
+}
+
+/* Headers de cards con colores de Flutter */
+.card-header-custom {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px 16px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header-custom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.community-header {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.assistant-header {
+  background: linear-gradient(135deg, #9C27B0, #8E24AA);
+}
+
+.financial-header {
+  background: linear-gradient(135deg, var(--accent-blue), #0078B3);
+}
+
+.card-icon {
+  font-size: 3rem;
+  color: var(--text-light);
+  z-index: 2;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Cuerpo de cards */
+.card-body {
+  padding: 2rem;
+  background: var(--card-bg);
+}
+
+.card-title {
+  color: var(--primary-dark);
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Listas de aprendizaje */
+.learning-points {
+  margin: 1.5rem 0;
+}
+
+.point-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.point-icon {
+  color: var(--accent-blue);
+  margin-right: 0.8rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.point-item span {
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Cards de servicios */
+.service-card {
+  height: 100%;
+  background: var(--card-bg);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  border-color: var(--accent-blue);
+}
+
+.card-img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px 14px 0 0;
+}
+
+.service-img {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-hover:hover .service-img {
+  transform: scale(1.05);
+}
+
+/* Características de servicios */
+.service-features {
+  display: flex;
+  justify-content: space-around;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-icon {
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.feature-item small {
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+/* Botones personalizados - Estilo Flutter */
+.btn-custom {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.events-btn {
+  background: linear-gradient(135deg, #FF9800, #F57C00);
+  color: var(--text-light);
+}
+
+.loans-btn {
+  background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+  color: var(--text-light);
+}
+
+.btn-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  color: var(--text-light);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+/* Casos de éxito */
+.success-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(22, 18, 59, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.success-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(22, 18, 59, 0.15);
+}
+
+.success-avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: var(--text-light);
+  font-size: 2rem;
+}
+
+.success-card h5 {
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.success-story {
+  color: #666;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Tarjeta de Impacto */
+.impact-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  padding: 3rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-light);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.impact-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent-blue), var(--text-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.impact-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--text-gray);
+}
+
+.impact-text strong {
+  color: var(--accent-blue);
+}
+
+.impact-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+
+.impact-icon {
+  font-size: 6rem;
+  color: var(--accent-blue);
+  opacity: 0.8;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .carousel-caption-custom h3 {
+    font-size: 2rem;
+  }
+  
+  .carousel-caption-custom p {
+    font-size: 1.2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .company-logo {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .logo-image-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .logo-icon {
+    font-size: 3rem;
+  }
+  
+  .logo-main {
+    font-size: 2rem;
+  }
+  
+  .app-download-card {
+    padding: 2rem;
+  }
+  
+  .app-download-title {
+    font-size: 1.8rem;
+  }
+  
+  .app-phone-icon {
+    font-size: 5rem;
+  }
+  
+  .service-features {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .carousel-img {
+    height: 300px;
+  }
+  
+  .impact-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .impact-card {
+    padding: 2rem;
+  }
+  
+  .impact-icon {
+    font-size: 4rem;
+    margin-top: 1rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.company-logo {
+  animation: fadeInUp 0.7s ease-out;
+}
+
+.app-download-card {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.impact-card {
+  animation: fadeInUp 0.9s ease-out;
+}
+
+.success-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+</style>
+
+<!-- Font Awesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock %}

@@ -1,0 +1,747 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Nuestro Equipo - Nic_Horizon{% endblock %}
+
+{% block contenido %}
+
+<!-- Banner Principal -->
+<div class="container mt-5">
+  <div class="text-center">
+    <div class="team-header-custom">
+      <i class="fas fa-users team-main-icon"></i>
+    </div>
+  </div>
+  <h2 class="text-center mb-3 section-title-team">Conoce a Nuestro Equipo</h2>
+  <p class="text-center team-subtitle">
+    En <strong>Nic_Horizon</strong> contamos con un equipo multidisciplinario de profesionales  
+    comprometidos con la excelencia y la innovación. Especialistas en desarrollo móvil con Flutter  
+    y tecnologías web modernas.
+  </p>
+</div>
+
+<!-- Logo de la Empresa -->
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <div class="logo-container">
+        <div class="company-logo">
+          <div class="logo-image-container">
+            <img src="{{ url_for('static', filename='nic_horizon_logo.png') }}" 
+                 alt="Nic_Horizon Logo" 
+                 class="logo-image"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="logo-icon-fallback" style="display: none;">
+              <i class="fas fa-mobile-alt logo-icon"></i>
+            </div>
+          </div>
+          <div class="logo-text">
+            <span class="logo-main">NIC_HORIZON</span>
+            <span class="logo-sub">Especialistas en Flutter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Especialidad Flutter -->
+<div class="container mb-4">
+  <div class="specialty-card">
+    <div class="row align-items-center">
+      <div class="col-md-2 text-center">
+        <i class="fab fa-flutter specialty-icon"></i>
+      </div>
+      <div class="col-md-10">
+        <h4 class="specialty-title">Especialistas en Desarrollo Móvil con Flutter</h4>
+        <p class="specialty-text">
+          Creamos aplicaciones multiplataforma de alto rendimiento usando Flutter y Dart. 
+          Desarrollamos soluciones nativas para iOS y Android desde un único código base.
+        </p>
+        <div class="specialty-skills">
+          <span class="specialty-tag">Flutter</span>
+          <span class="specialty-tag">Dart</span>
+          <span class="specialty-tag">Firebase</span>
+          <span class="specialty-tag">APIs REST</span>
+          <span class="specialty-tag">UI/UX Móvil</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Equipo de Desarrollo -->
+<div class="container mb-5">
+  <div class="section-header">
+    <i class="fas fa-code section-icon"></i>
+    <h3 class="section-title">Equipo de Desarrollo</h3>
+    <p class="section-description">Expertos en Flutter y desarrollo full-stack</p>
+  </div>
+  
+  <div class="row g-4">
+    <!-- Moisés Manuel Miranda González -->
+    <div class="col-md-4">
+      <div class="card team-card shadow-custom">
+        <div class="card-img-container">
+          <div class="team-img-real">
+            <img src="{{ url_for('static', filename='moises.jpg') }}" 
+                 alt="Moisés Manuel Miranda González" 
+                 class="team-photo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="team-img-placeholder" style="display: none;">
+              <i class="fas fa-user-circle img-icon"></i>
+            </div>
+          </div>
+          <div class="team-role-badge">Líder de Desarrollo</div>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="team-member-name">Moisés Manuel Miranda González</h5>
+          <p class="team-member-role">Desarrollador Flutter & Full Stack</p>
+          <p class="team-member-description">
+            Especialista en arquitectura de software y desarrollo móvil con Flutter. 
+            Con más de 5 años de experiencia en aplicaciones multiplataforma.
+          </p>
+          <div class="team-skills">
+            <span class="skill-tag">Flutter</span>
+            <span class="skill-tag">Dart</span>
+            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Joao Javier García Lanzas -->
+    <div class="col-md-4">
+      <div class="card team-card shadow-custom">
+        <div class="card-img-container">
+          <div class="team-img-real">
+            <img src="{{ url_for('static', filename='joao.jpg') }}" 
+                 alt="Joao Javier García Lanzas" 
+                 class="team-photo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="team-img-placeholder" style="display: none;">
+              <i class="fas fa-user-circle img-icon"></i>
+            </div>
+          </div>
+          <div class="team-role-badge">Backend & Flutter</div>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="team-member-name">Joao Javier García Lanzas</h5>
+          <p class="team-member-role">Desarrollador Backend & Flutter</p>
+          <p class="team-member-description">
+            Experto en APIs, bases de datos y integración con Flutter. 
+            Enfocado en crear sistemas robustos para aplicaciones móviles empresariales.
+          </p>
+          <div class="team-skills">
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Flutter</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">API Rest</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arlinton Ramón Mayorga Marin -->
+    <div class="col-md-4">
+      <div class="card team-card shadow-custom">
+        <div class="card-img-container">
+          <div class="team-img-real">
+            <img src="{{ url_for('static', filename='arlinton.jpg') }}" 
+                 alt="Arlinton Ramón Mayorga Marin" 
+                 class="team-photo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="team-img-placeholder" style="display: none;">
+              <i class="fas fa-user-circle img-icon"></i>
+            </div>
+          </div>
+          <div class="team-role-badge">UI/UX Flutter</div>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="team-member-name">Arlinton Ramón Mayorga Marin</h5>
+          <p class="team-member-role">Desarrollador Frontend & Flutter</p>
+          <p class="team-member-description">
+            Creador de interfaces móviles intuitivas y experiencias de usuario excepcionales 
+            con Flutter. Apasionado por el diseño y la animación en apps móviles.
+          </p>
+          <div class="team-skills">
+            <span class="skill-tag">Flutter</span>
+            <span class="skill-tag">UI/UX</span>
+            <span class="skill-tag">Animaciones</span>
+            <span class="skill-tag">Material Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Equipo de Diseño -->
+<div class="container mb-5">
+  <div class="section-header">
+    <i class="fas fa-palette section-icon"></i>
+    <h3 class="section-title">Equipo de Diseño</h3>
+    <p class="section-description">Creativos que dan vida a nuestras aplicaciones móviles</p>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card team-card shadow-custom">
+        <div class="card-img-container">
+          <div class="team-img-real">
+            <img src="{{ url_for('static', filename='heriberto.jpg') }}" 
+                 alt="Heriberto Samuel Conrado Morales" 
+                 class="team-photo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="team-img-placeholder" style="display: none;">
+              <i class="fas fa-user-circle img-icon"></i>
+            </div>
+          </div>
+          <div class="team-role-badge">Diseñador UI/UX</div>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="team-member-name">Heriberto Samuel Conrado Morales</h5>
+          <p class="team-member-role">Diseñador UI/UX Móvil</p>
+          <p class="team-member-description">
+            Transforma conceptos complejos en diseños elegantes y funcionales para Flutter. 
+            Su enfoque centrado en el usuario garantiza experiencias móviles memorables.
+          </p>
+          <div class="team-skills">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Adobe XD</span>
+            <span class="skill-tag">Material Design</span>
+            <span class="skill-tag">Prototipado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Equipo de Marketing Digital -->
+<div class="container mb-5">
+  <div class="section-header">
+    <i class="fas fa-chart-line section-icon"></i>
+    <h3 class="section-title">Marketing Digital</h3>
+    <p class="section-description">Conectamos tu aplicación con el mundo</p>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card team-card shadow-custom">
+        <div class="card-img-container">
+          <div class="team-img-real">
+            <img src="{{ url_for('static', filename='ninoska.jpg') }}" 
+                 alt="Ninoska Eveling Ruiz" 
+                 class="team-photo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="team-img-placeholder" style="display: none;">
+              <i class="fas fa-user-circle img-icon"></i>
+            </div>
+          </div>
+          <div class="team-role-badge">Estratega Digital</div>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="team-member-name">Ninoska Eveling Ruiz</h5>
+          <p class="team-member-role">Especialista en Marketing Digital</p>
+          <p class="team-member-description">
+            Desarrolla estrategias de marketing innovadoras para lanzamiento de aplicaciones 
+            móviles y crecimiento de usuarios en stores digitales.
+          </p>
+          <div class="team-skills">
+            <span class="skill-tag">ASO</span>
+            <span class="skill-tag">App Store</span>
+            <span class="skill-tag">Google Play</span>
+            <span class="skill-tag">Analytics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filosofía del Equipo -->
+<div class="container mb-5">
+  <div class="philosophy-card">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h4 class="philosophy-title">Nuestra Filosofía en Desarrollo Móvil</h4>
+        <p class="philosophy-text">
+          En <strong>Nic_Horizon</strong> creemos en el poder de Flutter para crear aplicaciones 
+          hermosas y de alto rendimiento. Combinamos tecnología de vanguardia con diseño intuitivo 
+          para ofrecer experiencias móviles excepcionales que funcionan perfectamente en iOS y Android.
+        </p>
+        <div class="philosophy-stats">
+          <div class="stat-item">
+            <span class="stat-number">20+</span>
+            <span class="stat-label">Apps en Flutter</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Código Compartido</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Años con Flutter</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="philosophy-icon">
+          <i class="fab fa-flutter"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Paleta de colores EXACTA de Flutter */
+:root {
+  --primary-dark: #16123B;
+  --primary-medium: #1D1750;
+  --accent-blue: #009FE3;
+  --accent-purple: #6C63FF;
+  --text-light: #FFFFFF;
+  --text-gray: #B0B0B0;
+  --card-bg: #FFFFFF;
+  --shadow-color: rgba(22, 18, 59, 0.2);
+  --success-green: #4CAF50;
+  --input-bg: #F8F9FA;
+  --flutter-blue: #02569B;
+}
+
+/* Fondo general */
+body {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+  min-height: 100vh;
+}
+
+/* Header del equipo */
+.team-header-custom {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  box-shadow: 0 8px 25px rgba(0, 159, 227, 0.3);
+}
+
+.team-main-icon {
+  font-size: 3.5rem;
+  color: var(--text-light);
+}
+
+/* Títulos */
+.section-title-team {
+  color: var(--text-light);
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.team-subtitle {
+  color: var(--text-gray);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Logo de la empresa */
+.logo-container {
+  margin: 2rem 0;
+}
+
+.company-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-image-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  border-radius: 15px;
+}
+
+.logo-icon-fallback {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  font-size: 3.5rem;
+  color: var(--accent-blue);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo-main {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.logo-sub {
+  color: var(--text-gray);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Especialidad Flutter */
+.specialty-card {
+  background: linear-gradient(135deg, var(--flutter-blue), #0288D1);
+  color: var(--text-light);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(2, 86, 155, 0.3);
+  margin-bottom: 2rem;
+}
+
+.specialty-icon {
+  font-size: 4rem;
+  color: var(--text-light);
+}
+
+.specialty-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.specialty-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.specialty-skills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.specialty-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-light);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Secciones del equipo */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-radius: 15px;
+  border-left: 4px solid var(--accent-blue);
+}
+
+.section-icon {
+  font-size: 2.5rem;
+  color: var(--accent-blue);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  color: var(--text-light);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-description {
+  color: var(--text-gray);
+  font-size: 1.1rem;
+}
+
+/* Cards del equipo */
+.team-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+}
+
+.team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-img-container {
+  position: relative;
+  padding: 2rem 1rem 1rem;
+  background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+  text-align: center;
+}
+
+.team-img-real {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.team-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.team-img-placeholder {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.img-icon {
+  font-size: 3.5rem;
+  color: var(--text-light);
+}
+
+.team-role-badge {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: var(--text-light);
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.card-body {
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+.team-member-name {
+  color: var(--primary-dark);
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.team-member-role {
+  color: var(--accent-blue);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.team-member-description {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.team-skills {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background: linear-gradient(135deg, var(--input-bg), #e9ecef);
+  color: var(--primary-dark);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+}
+
+/* Filosofía */
+.philosophy-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  padding: 3rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-light);
+}
+
+.philosophy-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent-blue), var(--text-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.philosophy-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--text-gray);
+}
+
+.philosophy-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+}
+
+.philosophy-icon {
+  font-size: 6rem;
+  color: var(--accent-blue);
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title-team {
+    font-size: 2rem;
+  }
+  
+  .team-header-custom {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .team-main-icon {
+    font-size: 2.5rem;
+  }
+  
+  .logo-main {
+    font-size: 2rem;
+  }
+  
+  .company-logo {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .logo-image-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .logo-icon {
+    font-size: 3rem;
+  }
+  
+  .philosophy-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .section-header {
+    padding: 1.5rem;
+  }
+  
+  .specialty-card .row {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .specialty-icon {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.team-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.team-header-custom {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.section-header {
+  animation: fadeInUp 0.7s ease-out;
+}
+
+.specialty-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.company-logo {
+  animation: fadeInUp 0.9s ease-out;
+}
+</style>
+
+<!-- Font Awesome para iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+{% endblock %}

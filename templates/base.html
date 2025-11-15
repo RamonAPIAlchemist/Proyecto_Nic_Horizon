@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}Nic_Horizon - Potenciando Emprendedores Nicaragüenses{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='nic_horizon_logo.png') }}">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+     
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.min.css" rel="stylesheet">
+   
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-dark: #16123B;
+            --primary-medium: #1D1750;
+            --accent-blue: #009FE3;
+            --accent-purple: #6C63FF;
+            --text-light: #FFFFFF;
+            --text-gray: #B0B0B0;
+            --card-bg: #FFFFFF;
+            --shadow-color: rgba(22, 18, 59, 0.2);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-light);
+        }
+
+        /* Navbar Styles */
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium)) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent-blue);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 5px 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover .brand-logo {
+            transform: scale(1.1);
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-blue) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Footer Styles Mejorado */
+        .footer-custom {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium)) !important;
+            border-top: 2px solid var(--accent-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%);
+            pointer-events: none;
+        }
+
+        .footer-title {
+            color: var(--text-light);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 2px;
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.8rem;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: var(--accent-blue);
+            box-shadow: 0 8px 20px rgba(0, 159, 227, 0.4);
+        }
+
+        .footer-link {
+            color: var(--text-light) !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-blue) !important;
+            transform: translateX(5px);
+        }
+
+        .footer-link i {
+            width: 20px;
+            margin-right: 0.8rem;
+            color: var(--accent-blue);
+        }
+
+        .nic-horizon-brand {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            margin-top: 1rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-logo-large {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+            transition: transform 0.3s ease;
+        }
+
+        .nic-horizon-brand:hover .brand-logo-large {
+            transform: scale(1.05);
+        }
+
+        .nic-horizon-brand h6 {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 0;
+            color: var(--text-light);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nic-horizon-brand p {
+            color: var(--text-light) !important;
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .copyright {
+            color: var(--text-light);
+            font-size: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1.5rem;
+            font-weight: 500;
+        }
+
+        .footer-text {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .brand-logo {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .nav-link {
+                text-align: center;
+                margin: 0.2rem 0;
+            }
+            
+            .social-icon {
+                width: 40px;
+                height: 40px;
+                margin: 0 0.3rem;
+            }
+            
+            .footer-title {
+                text-align: center;
+                font-size: 1.2rem;
+                justify-content: center;
+            }
+            
+            .footer-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .nic-horizon-brand {
+                padding: 20px 15px;
+            }
+
+            .nic-horizon-brand h6 {
+                font-size: 1.4rem;
+            }
+
+            .nic-horizon-brand p {
+                font-size: 1.1rem;
+            }
+
+            .brand-logo-large {
+                width: 80px;
+                height: 80px;
+            }
+
+            .footer-logo {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        footer {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Efectos de carga para imágenes */
+        .brand-logo, .footer-logo, .brand-logo-large {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar Actualizado -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('inicio') }}">
+                <img src="{{ url_for('static', filename='nic_horizon_logo.png') }}" alt="Nic_Horizon" class="brand-logo">
+                PAYNIC
+            </a>
+
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+             
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('inicio') }}">
+                            <i class="fas fa-home me-1"></i>
+                            Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contactopost') }}">
+                            <i class="fas fa-users me-1"></i>
+                            Nic_Horizon
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('acercade') }}">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Acerca de
+                        </a>
+                    </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">
+
+                            <i class="fas fa-info-circle me-1"></i>
+                            dashboardadmin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido dinámico -->
+    <main style="padding-top: 80px;">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <!-- Footer Mejorado -->
+    <footer class="footer-custom text-white mt-5">
+        <div class="container py-5">
+            <div class="row">
+                <!-- Información de Nic_Horizon -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">
+                        <img src="{{ url_for('static', filename='nic_horizon_logo.png') }}" alt="Nic_Horizon" class="footer-logo">
+                        Nic_Horizon
+                    </h5>
+                    <p class="footer-text mb-3">
+                        Potenciando emprendedores nicaragüenses con herramientas digitales inteligentes y una comunidad colaborativa.
+                    </p>
+                    <div class="footer-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Juigalpa, Chontales, Nicaragua</span>
+                    </div>
+                    <div class="footer-link">
+                        <i class="fas fa-flag"></i>
+                        <span>Hecho con ❤️ en Nicaragua</span>
+                    </div>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">
+                        <i class="fas fa-link me-2"></i>
+                        Enlaces Rápidos
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-file-contract"></i>
+                                Términos & Condiciones
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-shield-alt"></i>
+                                Política de Privacidad
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-question-circle"></i>
+                                Centro de Ayuda
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-download"></i>
+                                Descargar App
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contacto y Redes -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-title">
+                        <i class="fas fa-hashtag me-2"></i>
+                        Síguenos
+                    </h5>
+                    <div class="social-links mb-4">
+                        <a href="https://www.facebook.com/share/1FQQCZ9rFM/?mibextid=wwXIfr" 
+                           class="social-icon text-white" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/paynic25/" 
+                           class="social-icon text-white" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@pay.nic16?_t=ZM-90Sn7pR8p7z&_r=1" 
+                           class="social-icon text-white" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                    <div class="nic-horizon-brand">
+                        <img src="{{ url_for('static', filename='nic_horizon_logo.png') }}" alt="Nic_Horizon" class="brand-logo-large">
+                        <h6>Nic_Horizon</h6>
+                        <p>Transformando el ecosistema emprendedor</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="row pt-4">
+                <div class="col-12 text-center copyright">
+                    <p class="mb-0">
+                        <i class="fas fa-copyright me-2"></i>
+                        2025 Nic_Horizon - Potenciando Emprendedores Nicaragüenses. Todos los derechos reservados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle con JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.all.min.js"></script>
+</body>
+
+</html>

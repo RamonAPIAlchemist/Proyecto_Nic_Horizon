@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Dashboard Administrativo - Nic_Horizon{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid mt-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Dashboard Administrativo</h2>
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Cerrar sesión</a>
+  </div>
+
+  <!-- Estadísticas rápidas -->
+  <div class="row mb-4">
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <div class="card-body">
+          <i class="fas fa-users fa-2x text-primary mb-2"></i>
+          <h5 class="card-title">Usuarios</h5>
+          <p class="card-text display-6">{{ total_usuarios }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <div class="card-body">
+          <i class="fas fa-box-open fa-2x text-success mb-2"></i>
+          <h5 class="card-title">Publicaciones</h5>
+          <p class="card-text display-6">{{ total_publicaciones }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <div class="card-body">
+          <i class="fas fa-comments fa-2x text-warning mb-2"></i>
+          <h5 class="card-title">Comentarios</h5>
+          <p class="card-text display-6">{{ total_comentarios }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <div class="card-body">
+          <i class="fas fa-shopping-cart fa-2x text-danger mb-2"></i>
+          <h5 class="card-title">Productos/Servicios</h5>
+          <p class="card-text display-6">{{ total_productos }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <i class="fas fa-users me-2"></i> Usuarios Registrados
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Emprendimiento</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in usuarios %}
+          <tr>
+            <td><img src="{{ user.fotoPerfil }}" class="rounded-circle" width="50" height="50"></td>
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.correo }}</td>
+            <td>{{ user.emprendimiento }}</td>
+            <td>{{ user.numero }}</td>
+            <td>
+              <!-- Botón Editar Usuario -->
+              <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ user.id }}">
+                Editar
+              </button>
+
+              <!-- Modal Editar Usuario -->
+              <div class="modal fade" id="editarUsuarioModal{{ user.id }}" tabindex="-1" aria-labelledby="editarUsuarioModalLabel{{ user.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                  <form action="{{ url_for('editar_usuario_dashboard', user_id=user.id) }}" method="post">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editarUsuarioModalLabel{{ user.id }}">Editar Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label>Nombre</label>
+                          <input type="text" class="form-control" name="nombre" value="{{ user.nombre }}">
+                        </div>
+                        <div class="mb-3">
+                          <label>Email</label>
+                          <input type="email" class="form-control" name="correo" value="{{ user.correo }}">
+                        </div>
+                        <div class="mb-3">
+                          <label>Teléfono</label>
+                          <input type="text" class="form-control" name="numero" value="{{ user.numero }}">
+                        </div>
+                        <div class="mb-3">
+                          <label>Emprendimiento</label>
+                          <input type="text" class="form-control" name="emprendimiento" value="{{ user.emprendimiento }}">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Botón Eliminar Usuario -->
+              <form action="{{ url_for('eliminar_usuario_dashboard', user_id=user.id) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tabla de Publicaciones -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-success text-white">
+      <i class="fas fa-box-open me-2"></i> Publicaciones
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Descripción</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Likes</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pub in publicaciones %}
+          <tr>
+            <td><img src="{{ pub.url_Imagen }}" width="60" height="60" class="rounded"></td>
+            <td>{{ pub.descripcion }}</td>
+            <td>{{ pub.userName }}</td>
+            <td>{{ pub.fechaCreacion }}</td>
+            <td>{{ pub.likes|length }}</td>
+            <td>
+              <!-- Botón Editar Publicación -->
+              <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarPubModal{{ pub.id }}">
+                Editar
+              </button>
+
+              <!-- Modal Editar Publicación -->
+              <div class="modal fade" id="editarPubModal{{ pub.id }}" tabindex="-1" aria-labelledby="editarPubModalLabel{{ pub.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                  <form action="{{ url_for('editar_publicacion_dashboard', pub_id=pub.id) }}" method="post">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editarPubModalLabel{{ pub.id }}">Editar Publicación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <label>Descripción</label>
+                          <textarea class="form-control" name="descripcion">{{ pub.descripcion }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label>URL Imagen</label>
+                          <input type="text" class="form-control" name="url_Imagen" value="{{ pub.url_Imagen }}">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Botón Eliminar Publicación -->
+              <form action="{{ url_for('eliminar_publicacion_dashboard', pub_id=pub.id) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tabla de Comentarios -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-warning text-dark">
+      <i class="fas fa-comments me-2"></i> Comentarios
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Comentario</th>
+            <th>Fecha</th>
+            <th>Likes</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for com in comentarios %}
+          <tr>
+            <td>{{ com.userName }}</td>
+            <td>{{ com.texto }}</td>
+            <td>{{ com.fechaComentario }}</td>
+            <td>{{ com.likes_Comentarios|length }}</td>
+            <td>
+              <!-- Solo eliminar comentarios -->
+              <form action="{{ url_for('eliminar_comentario_dashboard', comentario_id=com.id) }}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Bootstrap JS (para los modales) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
