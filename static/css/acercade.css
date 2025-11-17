@@ -1,0 +1,505 @@
+/* static/css/acercade.css */
+
+/* Paleta de colores EXACTA de Flutter */
+:root {
+  --primary-dark: #16123B;
+  --primary-medium: #1D1750;
+  --accent-blue: #009FE3;
+  --accent-purple: #6C63FF;
+  --text-light: #FFFFFF;
+  --text-gray: #B0B0B0;
+  --card-bg: #FFFFFF;
+  --shadow-color: rgba(22, 18, 59, 0.2);
+  --success-green: #4CAF50;
+  --warning-orange: #FF9800;
+  --info-cyan: #00BCD4;
+}
+
+/* Fondo general */
+.acercade-body {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+  min-height: 100vh;
+}
+
+/* Header de about */
+.about-header-custom {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  box-shadow: 0 8px 25px rgba(0, 159, 227, 0.3);
+  border: 4px solid var(--text-light);
+}
+
+.about-main-icon {
+  font-size: 4rem;
+  color: var(--text-light);
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Títulos */
+.section-title-about,
+.section-title-values {
+  color: var(--text-light);
+  font-weight: bold;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.section-title-about::after,
+.section-title-values::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  border-radius: 2px;
+}
+
+.about-subtitle {
+  color: var(--text-gray);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 16px;
+  border-left: 4px solid var(--accent-blue);
+}
+
+/* Logo de la empresa */
+.logo-container {
+  margin: 2rem 0;
+}
+
+.company-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-image-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  border-radius: 15px;
+}
+
+.logo-icon-fallback {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  font-size: 3.5rem;
+  color: var(--accent-blue);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo-main {
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.logo-sub {
+  color: var(--text-gray);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+/* Cards generales */
+.shadow-custom {
+  box-shadow: 0 8px 25px var(--shadow-color);
+  border: none;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  overflow: hidden;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(22, 18, 59, 0.25);
+}
+
+/* Headers de cards Misión, Visión, Objetivo */
+.card-header-custom {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header-custom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.mission-header {
+  background: linear-gradient(135deg, var(--primary-medium), var(--primary-dark));
+}
+
+.vision-header {
+  background: linear-gradient(135deg, var(--accent-blue), #0078B3);
+}
+
+.objective-header {
+  background: linear-gradient(135deg, var(--accent-purple), #5A52CC);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  color: var(--text-light);
+  z-index: 2;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Cuerpo de cards */
+.card-body {
+  padding: 2rem;
+  background: var(--card-bg);
+}
+
+.about-card-title {
+  color: var(--primary-dark);
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.about-card-text {
+  color: #555;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.about-card-text strong {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+/* Cards de valores */
+.value-card {
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+}
+
+.value-card:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-5px) scale(1.02);
+}
+
+.value-icon-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -40px auto 1rem;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 4px solid var(--text-light);
+}
+
+.innovation-icon {
+  background: linear-gradient(135deg, #FF9800, #F57C00);
+}
+
+.commitment-icon {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.accessibility-icon {
+  background: linear-gradient(135deg, #9C27B0, #8E24AA);
+}
+
+.efficiency-icon {
+  background: linear-gradient(135deg, #00BCD4, #00ACC1);
+}
+
+.value-icon {
+  font-size: 2rem;
+  color: var(--text-light);
+}
+
+.value-title {
+  color: var(--primary-dark);
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin: 1rem 0 1rem;
+  text-align: center;
+}
+
+.value-text {
+  color: #666;
+  line-height: 1.5;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Tarjeta de Impacto */
+.impact-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  padding: 3rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-light);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.impact-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent-blue), var(--text-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.impact-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: var(--text-gray);
+}
+
+.impact-text strong {
+  color: var(--accent-blue);
+}
+
+.impact-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  min-width: 120px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+
+.impact-icon {
+  font-size: 6rem;
+  color: var(--accent-blue);
+  opacity: 0.8;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+
+/* Efectos especiales */
+.mission-card:hover .card-header-custom {
+  background: linear-gradient(135deg, var(--primary-dark), #0F0C24);
+}
+
+.vision-card:hover .card-header-custom {
+  background: linear-gradient(135deg, #0078B3, #006699);
+}
+
+.objective-card:hover .card-header-custom {
+  background: linear-gradient(135deg, #5A52CC, #4A42B8);
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.about-header-custom {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.company-logo {
+  animation: fadeInUp 0.7s ease-out;
+}
+
+.impact-card {
+  animation: fadeInUp 0.9s ease-out;
+}
+
+.value-card:hover .value-icon-container {
+  animation: pulse 0.6s ease-in-out;
+}
+
+/* Efectos de brillo al hover */
+.card-hover:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title-about,
+  .section-title-values {
+    font-size: 2rem;
+  }
+  
+  .about-header-custom {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .about-main-icon {
+    font-size: 3rem;
+  }
+  
+  .about-subtitle {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .company-logo {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .logo-image-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .logo-icon {
+    font-size: 3rem;
+  }
+  
+  .logo-main {
+    font-size: 2rem;
+  }
+  
+  .card-header-custom {
+    height: 80px;
+  }
+  
+  .card-icon {
+    font-size: 2rem;
+  }
+  
+  .value-icon-container {
+    width: 70px;
+    height: 70px;
+    margin: -35px auto 1rem;
+  }
+  
+  .value-icon {
+    font-size: 1.7rem;
+  }
+  
+  .impact-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .impact-card {
+    padding: 2rem;
+  }
+  
+  .impact-icon {
+    font-size: 4rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+}
