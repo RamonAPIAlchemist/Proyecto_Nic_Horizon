@@ -107,12 +107,12 @@
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th class="ps-4">Foto</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Emprendimiento</th>
-              <th>Teléfono</th>
-              <th class="text-center pe-4">Acciones</th>
+              <th class="ps-4" style="min-width: 80px;">Foto</th>
+              <th style="min-width: 180px;">Nombre</th>
+              <th style="min-width: 200px;">Email</th>
+              <th style="min-width: 150px;">Emprendimiento</th>
+              <th style="min-width: 120px;">Teléfono</th>
+              <th class="text-center pe-4" style="min-width: 120px;">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -124,117 +124,35 @@
                 </div>
               </td>
               <td>
-                <div class="fw-semibold">{{ user.nombre }}</div>
+                <div class="fw-semibold text-truncate" style="max-width: 160px;" title="{{ user.nombre }}">
+                  {{ user.nombre }}
+                </div>
                 <small class="text-muted">ID: {{ user.id[:8] }}...</small>
               </td>
               <td>
-                <div class="text-muted small">{{ user.correo }}</div>
+                <div class="text-muted small text-truncate" style="max-width: 180px;" title="{{ user.correo }}">
+                  {{ user.correo }}
+                </div>
               </td>
               <td>
-                <span class="badge bg-light text-dark">{{ user.emprendimiento or 'Sin emprendimiento' }}</span>
+                <span class="badge bg-light text-dark text-truncate" style="max-width: 140px;" title="{{ user.emprendimiento or 'Sin emprendimiento' }}">
+                  {{ user.emprendimiento or 'Sin emprendimiento' }}
+                </span>
               </td>
               <td>
                 <span class="text-muted">{{ user.numero or 'N/A' }}</span>
               </td>
               <td class="text-center pe-4">
                 <div class="btn-group btn-group-sm" role="group">
-                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ user.id }}">
+                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal{{ user.id }}" title="Editar">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarUsuarioModal{{ user.id }}">
+                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarUsuarioModal{{ user.id }}" title="Eliminar">
                     <i class="fas fa-trash"></i>
                   </button>
                 </div>
               </td>
             </tr>
-
-            <!-- Modal Editar Usuario -->
-            <div class="modal fade" id="editarUsuarioModal{{ user.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-user-edit me-2"></i>Editar Usuario
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <form method="POST" action="{{ url_for('dashboard.editar_usuario_dashboard', user_id=user.id) }}" id="formEditarUsuario{{ user.id }}">
-                    <div class="modal-body">
-                      <div class="alert alert-info">
-                        <small><i class="fas fa-info-circle me-1"></i><strong>ID Usuario:</strong> {{ user.id }}</small>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Nombre *</label>
-                        <input type="text" name="nombre" class="form-control" value="{{ user.nombre }}" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Correo *</label>
-                        <input type="email" name="correo" class="form-control" value="{{ user.correo }}" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Teléfono</label>
-                        <input type="text" name="numero" class="form-control" value="{{ user.numero }}">
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Emprendimiento</label>
-                        <input type="text" name="emprendimiento" class="form-control" value="{{ user.emprendimiento }}">
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-1"></i>Guardar cambios
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal Eliminar Usuario -->
-            <div class="modal fade" id="eliminarUsuarioModal{{ user.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación COMPLETA
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center mb-3">
-                      <i class="fas fa-user-slash text-danger fa-3x mb-3"></i>
-                      <h5>¿Está seguro de eliminar COMPLETAMENTE este usuario?</h5>
-                      <div class="alert alert-warning mt-3">
-                        <strong>¡ADVERTENCIA CRÍTICA!</strong><br>
-                        Esta acción eliminará permanentemente:
-                        <ul class="text-start mt-2">
-                          <li>El perfil del usuario</li>
-                          <li>Todas sus publicaciones</li>
-                          <li>Todos sus comentarios</li>
-                          <li>Todas las ruedas de negocio que creó</li>
-                          <li>Su participación en otras ruedas</li>
-                          <li>Todos sus likes en publicaciones y comentarios</li>
-                        </ul>
-                      </div>
-                      <p class="text-muted"><strong>Usuario:</strong> {{ user.nombre }}</p>
-                      <div class="alert alert-info mt-2">
-                        <small><strong>ID:</strong> {{ user.id }}</small>
-                      </div>
-                      <p class="text-danger fw-bold">⚠️ Esta acción no se puede deshacer</p>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="{{ url_for('dashboard.eliminar_usuario_dashboard', user_id=user.id) }}" style="display:inline;">
-                      <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash me-1"></i>Eliminar Completamente
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
             {% endfor %}
           </tbody>
         </table>
@@ -255,12 +173,12 @@
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th class="ps-4">Imagen</th>
-              <th>Descripción</th>
-              <th>Usuario</th>
-              <th>Fecha</th>
-              <th>Likes</th>
-              <th class="text-center pe-4">Acciones</th>
+              <th class="ps-4" style="min-width: 80px;">Imagen</th>
+              <th style="min-width: 300px;">Descripción</th>
+              <th style="min-width: 150px;">Usuario</th>
+              <th style="min-width: 120px;">Fecha</th>
+              <th style="min-width: 80px;">Likes</th>
+              <th class="text-center pe-4" style="min-width: 120px;">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -272,11 +190,15 @@
                 </div>
               </td>
               <td>
-                <div class="publication-desc">{{ pub.descripcion[:100] }}{% if pub.descripcion|length > 100 %}...{% endif %}</div>
+                <div class="publication-desc text-truncate" style="max-width: 280px;" title="{{ pub.descripcion }}">
+                  {{ pub.descripcion }}
+                </div>
                 <small class="text-muted">ID: {{ pub.id[:8] }}...</small>
               </td>
               <td>
-                <div class="fw-semibold">{{ pub.userName }}</div>
+                <div class="fw-semibold text-truncate" style="max-width: 140px;" title="{{ pub.userName }}">
+                  {{ pub.userName }}
+                </div>
               </td>
               <td>
                 <div class="text-muted small">{{ pub.fechaCreacion }}</div>
@@ -288,83 +210,15 @@
               </td>
               <td class="text-center pe-4">
                 <div class="btn-group btn-group-sm" role="group">
-                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarPublicacionModal{{ pub.id }}">
+                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarPublicacionModal{{ pub.id }}" title="Editar">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarPublicacionModal{{ pub.id }}">
+                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarPublicacionModal{{ pub.id }}" title="Eliminar">
                     <i class="fas fa-trash"></i>
                   </button>
                 </div>
               </td>
             </tr>
-
-            <!-- Modal Editar Publicación -->
-            <div class="modal fade" id="editarPublicacionModal{{ pub.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-edit me-2"></i>Editar Publicación
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <form method="POST" action="{{ url_for('dashboard.editar_publicacion_dashboard', pub_id=pub.id) }}" id="formEditarPublicacion{{ pub.id }}">
-                    <div class="modal-body">
-                      <div class="alert alert-info">
-                        <small><i class="fas fa-info-circle me-1"></i><strong>ID Publicación:</strong> {{ pub.id }}</small>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Descripción *</label>
-                        <textarea name="descripcion" class="form-control" rows="4" required>{{ pub.descripcion }}</textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">URL Imagen *</label>
-                        <input type="text" name="url_Imagen" class="form-control" value="{{ pub.url_Imagen }}" required>
-                        <div class="form-text">Ingrese la URL de la imagen de la publicación</div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save me-1"></i>Guardar cambios
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal Eliminar Publicación -->
-            <div class="modal fade" id="eliminarPublicacionModal{{ pub.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center mb-3">
-                      <i class="fas fa-trash-alt text-danger fa-3x mb-3"></i>
-                      <h5>¿Está seguro de eliminar esta publicación?</h5>
-                      <p class="text-muted">Esta acción eliminará la publicación y todos sus comentarios asociados.</p>
-                      <div class="alert alert-warning mt-3">
-                        <small><strong>ID:</strong> {{ pub.id }}</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="{{ url_for('dashboard.eliminar_publicacion_dashboard', pub_id=pub.id) }}" style="display:inline;">
-                      <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash me-1"></i>Eliminar Publicación
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
             {% endfor %}
           </tbody>
         </table>
@@ -385,22 +239,26 @@
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th class="ps-4">Usuario</th>
-              <th>Comentario</th>
-              <th>Fecha</th>
-              <th>Likes</th>
-              <th class="text-center pe-4">Acciones</th>
+              <th class="ps-4" style="min-width: 150px;">Usuario</th>
+              <th style="min-width: 300px;">Comentario</th>
+              <th style="min-width: 120px;">Fecha</th>
+              <th style="min-width: 80px;">Likes</th>
+              <th class="text-center pe-4" style="min-width: 100px;">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {% for com in comentarios %}
             <tr class="comment-row">
               <td class="ps-4">
-                <div class="fw-semibold">{{ com.userName }}</div>
+                <div class="fw-semibold text-truncate" style="max-width: 140px;" title="{{ com.userName }}">
+                  {{ com.userName }}
+                </div>
                 <small class="text-muted">ID: {{ com.id[:8] }}...</small>
               </td>
               <td>
-                <div class="comment-text">{{ com.texto[:80] }}{% if com.texto|length > 80 %}...{% endif %}</div>
+                <div class="comment-text text-truncate" style="max-width: 280px;" title="{{ com.texto }}">
+                  {{ com.texto }}
+                </div>
               </td>
               <td>
                 <div class="text-muted small">{{ com.fechaComentario }}</div>
@@ -411,46 +269,11 @@
                 </span>
               </td>
               <td class="text-center pe-4">
-                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarComentarioModal{{ com.id }}">
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarComentarioModal{{ com.id }}" title="Eliminar">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
             </tr>
-
-            <!-- Modal Eliminar Comentario -->
-            <div class="modal fade" id="eliminarComentarioModal{{ com.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center mb-3">
-                      <i class="fas fa-comment-slash text-danger fa-3x mb-3"></i>
-                      <h5>¿Está seguro de eliminar este comentario?</h5>
-                      <div class="alert alert-light mt-3">
-                        <strong>Comentario:</strong> "{{ com.texto }}"
-                      </div>
-                      <div class="alert alert-warning mt-2">
-                        <small><strong>ID:</strong> {{ com.id }}</small>
-                      </div>
-                      <p class="text-muted">Esta acción no se puede deshacer.</p>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="{{ url_for('dashboard.eliminar_comentario_dashboard', comentario_id=com.id) }}" style="display:inline;">
-                      <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash me-1"></i>Eliminar Comentario
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
             {% endfor %}
           </tbody>
         </table>
@@ -471,29 +294,65 @@
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th class="ps-4">Nombre</th>
-              <th>Fecha</th>
-              <th>Descripción</th>
-              <th>Participantes</th>
-              <th>Estado</th>
-              <th class="text-center pe-4">Acciones</th>
+              <th class="ps-4" style="min-width: 150px;">Tema</th>
+              <th style="min-width: 120px;">Fecha</th>
+              <th style="min-width: 120px;">Hora</th>
+              <th style="min-width: 200px;">Descripción</th>
+              <th style="min-width: 150px;">Link</th>
+              <th style="min-width: 120px;">Asistentes</th>
+              <th style="min-width: 150px;">Creador</th>
+              <th style="min-width: 120px;">Estado</th>
+              <th class="text-center pe-4" style="min-width: 150px;">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {% for rueda in ruedas %}
             <tr class="rueda-row">
               <td class="ps-4">
-                <div class="fw-semibold">{{ rueda.nombre }}</div>
+                <div class="fw-semibold text-truncate" style="max-width: 140px;" title="{{ rueda.tema }}">
+                  {{ rueda.tema }}
+                </div>
                 <small class="text-muted">ID: {{ rueda.id[:8] }}...</small>
               </td>
               <td>
-                <div class="text-muted">{{ rueda.fecha }}</div>
+                <div class="text-muted small">{{ rueda.fecha }}</div>
               </td>
               <td>
-                <div class="rueda-desc">{{ rueda.descripcion[:80] }}{% if rueda.descripcion|length > 80 %}...{% endif %}</div>
+                <div class="text-muted small">{{ rueda.hora }}</div>
               </td>
               <td>
-                <span class="badge bg-primary">{{ rueda.participantes|length }} participantes</span>
+                <div class="rueda-desc text-truncate" style="max-width: 190px;" title="{{ rueda.descripcion }}">
+                  {{ rueda.descripcion }}
+                </div>
+              </td>
+              <td>
+                {% if rueda.link %}
+                <a href="{{ rueda.link }}" target="_blank" class="text-truncate d-inline-block" style="max-width: 140px;" title="{{ rueda.link }}">
+                  {{ rueda.link[:20] }}...
+                </a>
+                {% else %}
+                <span class="text-muted">Sin link</span>
+                {% endif %}
+              </td>
+              <td>
+                <span class="badge bg-primary">{{ rueda.asistentes|length }} asistentes</span>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  {% if rueda.userPhotoUrl %}
+                  <img src="{{ rueda.userPhotoUrl }}" class="rounded-circle me-2" width="30" height="30" alt="{{ rueda.userName }}">
+                  {% else %}
+                  <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-2" style="width: 30px; height: 30px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  {% endif %}
+                  <div>
+                    <div class="fw-semibold small text-truncate" style="max-width: 120px;" title="{{ rueda.userName }}">
+                      {{ rueda.userName }}
+                    </div>
+                    <small class="text-muted">{{ rueda.userEmprendimiento }}</small>
+                  </div>
+                </div>
               </td>
               <td>
                 {% set estado = rueda.estado if rueda.estado else 'activa' %}
@@ -509,176 +368,18 @@
               </td>
               <td class="text-center pe-4">
                 <div class="btn-group btn-group-sm" role="group">
-                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarRuedaModal{{ rueda.id }}">
+                  <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarRuedaModal{{ rueda.id }}" title="Editar">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#detallesRuedaModal{{ rueda.id }}">
+                  <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#detallesRuedaModal{{ rueda.id }}" title="Ver detalles">
                     <i class="fas fa-eye"></i>
                   </button>
-                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarRuedaModal{{ rueda.id }}">
+                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarRuedaModal{{ rueda.id }}" title="Eliminar">
                     <i class="fas fa-trash"></i>
                   </button>
                 </div>
               </td>
             </tr>
-
-            <!-- Modal Editar Rueda de Negocio -->
-            <div class="modal fade" id="editarRuedaModal{{ rueda.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-info text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-edit me-2"></i>Editar Rueda de Negocio
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <form method="POST" action="{{ url_for('dashboard.editar_rueda_dashboard', rueda_id=rueda.id) }}" id="formEditarRueda{{ rueda.id }}">
-                    <div class="modal-body">
-                      <div class="alert alert-info">
-                        <small><i class="fas fa-info-circle me-1"></i><strong>ID Rueda:</strong> {{ rueda.id }}</small>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Nombre *</label>
-                        <input type="text" name="nombre" class="form-control" value="{{ rueda.nombre }}" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Fecha *</label>
-                        <input type="date" name="fecha" class="form-control" value="{{ rueda.fecha }}" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Descripción *</label>
-                        <textarea name="descripcion" class="form-control" rows="4" required>{{ rueda.descripcion }}</textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label fw-semibold">Estado *</label>
-                        <select name="estado" class="form-select" required>
-                          <option value="planificada" {% if rueda.estado == 'planificada' %}selected{% endif %}>Planificada</option>
-                          <option value="activa" {% if rueda.estado == 'activa' or not rueda.estado %}selected{% endif %}>Activa</option>
-                          <option value="finalizada" {% if rueda.estado == 'finalizada' %}selected{% endif %}>Finalizada</option>
-                          <option value="cancelada" {% if rueda.estado == 'cancelada' %}selected{% endif %}>Cancelada</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-info">
-                        <i class="fas fa-save me-1"></i>Guardar cambios
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal Detalles Rueda de Negocio -->
-            <div class="modal fade" id="detallesRuedaModal{{ rueda.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-info-circle me-2"></i>Detalles de Rueda de Negocio
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <h6 class="fw-semibold">Información General</h6>
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item d-flex justify-content-between">
-                            <span>Nombre:</span>
-                            <strong>{{ rueda.nombre }}</strong>
-                          </li>
-                          <li class="list-group-item d-flex justify-content-between">
-                            <span>Fecha:</span>
-                            <strong>{{ rueda.fecha }}</strong>
-                          </li>
-                          <li class="list-group-item d-flex justify-content-between">
-                            <span>Estado:</span>
-                            {% set estado = rueda.estado if rueda.estado else 'activa' %}
-                            {% if estado == 'activa' %}
-                              <span class="badge bg-success">Activa</span>
-                            {% elif estado == 'finalizada' %}
-                              <span class="badge bg-secondary">Finalizada</span>
-                            {% elif estado == 'cancelada' %}
-                              <span class="badge bg-danger">Cancelada</span>
-                            {% else %}
-                              <span class="badge bg-warning">Planificada</span>
-                            {% endif %}
-                          </li>
-                          <li class="list-group-item">
-                            <span class="text-muted"><strong>ID:</strong> {{ rueda.id }}</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="col-md-6">
-                        <h6 class="fw-semibold">Participantes</h6>
-                        {% if rueda.participantes and rueda.participantes|length > 0 %}
-                          <div class="participants-list">
-                            {% for participante in rueda.participantes %}
-                              <div class="d-flex align-items-center mb-2">
-                                <i class="fas fa-user-circle text-muted me-2"></i>
-                                <span>{{ participante.nombre if participante.nombre else 'Usuario ' + loop.index|string }}</span>
-                              </div>
-                            {% endfor %}
-                          </div>
-                        {% else %}
-                          <p class="text-muted">No hay participantes registrados</p>
-                        {% endif %}
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-12">
-                        <h6 class="fw-semibold">Descripción Completa</h6>
-                        <div class="card">
-                          <div class="card-body">
-                            <p class="mb-0">{{ rueda.descripcion }}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal Eliminar Rueda de Negocio -->
-            <div class="modal fade" id="eliminarRuedaModal{{ rueda.id }}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">
-                      <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center mb-3">
-                      <i class="fas fa-handshake-slash text-danger fa-3x mb-3"></i>
-                      <h5>¿Está seguro de eliminar esta rueda de negocio?</h5>
-                      <div class="alert alert-warning mt-3">
-                        <strong>Advertencia:</strong> Esta acción eliminará la rueda de negocio "{{ rueda.nombre }}" y todos los datos asociados.
-                      </div>
-                      <div class="alert alert-info mt-2">
-                        <small><strong>ID:</strong> {{ rueda.id }}</small>
-                      </div>
-                      <p class="text-muted">Esta acción no se puede deshacer.</p>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="{{ url_for('dashboard.eliminar_rueda_dashboard', rueda_id=rueda.id) }}" style="display:inline;">
-                      <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash me-1"></i>Eliminar Rueda
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
             {% endfor %}
           </tbody>
         </table>
@@ -688,8 +389,603 @@
 
 </div>
 
-<!-- Enlaces a archivos externos -->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<!-- MODALES FUERA DEL CONTENEDOR PRINCIPAL -->
+<!-- Modales de Usuarios -->
+{% for user in usuarios %}
+<!-- Modal Editar Usuario -->
+<div class="modal fade" id="editarUsuarioModal{{ user.id }}" tabindex="-1" aria-labelledby="editarUsuarioModalLabel{{ user.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="editarUsuarioModalLabel{{ user.id }}">
+          <i class="fas fa-user-edit me-2"></i>Editar Usuario
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" action="{{ url_for('dashboard.editar_usuario_dashboard', user_id=user.id) }}" id="formEditarUsuario{{ user.id }}">
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <small><i class="fas fa-info-circle me-1"></i><strong>ID Usuario:</strong> {{ user.id }}</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nombre *</label>
+            <input type="text" name="nombre" class="form-control" value="{{ user.nombre }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Correo *</label>
+            <input type="email" name="correo" class="form-control" value="{{ user.correo }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Teléfono</label>
+            <input type="text" name="numero" class="form-control" value="{{ user.numero }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Emprendimiento</label>
+            <input type="text" name="emprendimiento" class="form-control" value="{{ user.emprendimiento }}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save me-1"></i>Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Usuario -->
+<div class="modal fade" id="eliminarUsuarioModal{{ user.id }}" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel{{ user.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="eliminarUsuarioModalLabel{{ user.id }}">
+          <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación COMPLETA
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="fas fa-user-slash text-danger fa-3x mb-3"></i>
+          <h5>¿Está seguro de eliminar COMPLETAMENTE este usuario?</h5>
+          <div class="alert alert-warning mt-3">
+            <strong>¡ADVERTENCIA CRÍTICA!</strong><br>
+            Esta acción eliminará permanentemente:
+            <ul class="text-start mt-2">
+              <li>El perfil del usuario</li>
+              <li>Todas sus publicaciones</li>
+              <li>Todos sus comentarios</li>
+              <li>Todas las ruedas de negocio que creó</li>
+              <li>Su participación en otras ruedas</li>
+              <li>Todos sus likes en publicaciones y comentarios</li>
+            </ul>
+          </div>
+          <p class="text-muted"><strong>Usuario:</strong> {{ user.nombre }}</p>
+          <div class="alert alert-info mt-2">
+            <small><strong>ID:</strong> {{ user.id }}</small>
+          </div>
+          <p class="text-danger fw-bold">⚠️ Esta acción no se puede deshacer</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="POST" action="{{ url_for('dashboard.eliminar_usuario_dashboard', user_id=user.id) }}" style="display:inline;">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash me-1"></i>Eliminar Completamente
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Modales de Publicaciones -->
+{% for pub in publicaciones %}
+<!-- Modal Editar Publicación -->
+<div class="modal fade" id="editarPublicacionModal{{ pub.id }}" tabindex="-1" aria-labelledby="editarPublicacionModalLabel{{ pub.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="editarPublicacionModalLabel{{ pub.id }}">
+          <i class="fas fa-edit me-2"></i>Editar Publicación
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" action="{{ url_for('dashboard.editar_publicacion_dashboard', pub_id=pub.id) }}" id="formEditarPublicacion{{ pub.id }}">
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <small><i class="fas fa-info-circle me-1"></i><strong>ID Publicación:</strong> {{ pub.id }}</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Descripción *</label>
+            <textarea name="descripcion" class="form-control" rows="4" required>{{ pub.descripcion }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">URL Imagen *</label>
+            <input type="text" name="url_Imagen" class="form-control" value="{{ pub.url_Imagen }}" required>
+            <div class="form-text">Ingrese la URL de la imagen de la publicación</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">
+            <i class="fas fa-save me-1"></i>Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Publicación -->
+<div class="modal fade" id="eliminarPublicacionModal{{ pub.id }}" tabindex="-1" aria-labelledby="eliminarPublicacionModalLabel{{ pub.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="eliminarPublicacionModalLabel{{ pub.id }}">
+          <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="fas fa-trash-alt text-danger fa-3x mb-3"></i>
+          <h5>¿Está seguro de eliminar esta publicación?</h5>
+          <p class="text-muted">Esta acción eliminará la publicación y todos sus comentarios asociados.</p>
+          <div class="alert alert-warning mt-3">
+            <small><strong>ID:</strong> {{ pub.id }}</small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="POST" action="{{ url_for('dashboard.eliminar_publicacion_dashboard', pub_id=pub.id) }}" style="display:inline;">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash me-1"></i>Eliminar Publicación
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Modales de Comentarios -->
+{% for com in comentarios %}
+<!-- Modal Eliminar Comentario -->
+<div class="modal fade" id="eliminarComentarioModal{{ com.id }}" tabindex="-1" aria-labelledby="eliminarComentarioModalLabel{{ com.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="eliminarComentarioModalLabel{{ com.id }}">
+          <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="fas fa-comment-slash text-danger fa-3x mb-3"></i>
+          <h5>¿Está seguro de eliminar este comentario?</h5>
+          <div class="alert alert-light mt-3">
+            <strong>Comentario:</strong> "{{ com.texto }}"
+          </div>
+          <div class="alert alert-warning mt-2">
+            <small><strong>ID:</strong> {{ com.id }}</small>
+          </div>
+          <p class="text-muted">Esta acción no se puede deshacer.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="POST" action="{{ url_for('dashboard.eliminar_comentario_dashboard', comentario_id=com.id) }}" style="display:inline;">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash me-1"></i>Eliminar Comentario
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Modales de Ruedas de Negocio -->
+{% for rueda in ruedas %}
+<!-- Modal Editar Rueda de Negocio -->
+<div class="modal fade" id="editarRuedaModal{{ rueda.id }}" tabindex="-1" aria-labelledby="editarRuedaModalLabel{{ rueda.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="editarRuedaModalLabel{{ rueda.id }}">
+          <i class="fas fa-edit me-2"></i>Editar Rueda de Negocio
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method="POST" action="{{ url_for('dashboard.editar_rueda_dashboard', rueda_id=rueda.id) }}" id="formEditarRueda{{ rueda.id }}">
+        <div class="modal-body">
+          <div class="alert alert-info">
+            <small><i class="fas fa-info-circle me-1"></i><strong>ID Rueda:</strong> {{ rueda.id }}</small>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Tema *</label>
+            <input type="text" name="tema" class="form-control" value="{{ rueda.tema }}" required>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Descripción *</label>
+            <textarea name="descripcion" class="form-control" rows="3" required>{{ rueda.descripcion }}</textarea>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Fecha *</label>
+                <input type="date" name="fecha" class="form-control" value="{{ rueda.fecha }}" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Hora *</label>
+                <input type="time" name="hora" class="form-control" value="{{ rueda.hora }}" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Link de reunión</label>
+            <input type="url" name="link" class="form-control" value="{{ rueda.link }}" placeholder="https://meet.google.com/...">
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Estado *</label>
+            <select name="estado" class="form-select" required>
+              <option value="planificada" {% if rueda.estado == 'planificada' %}selected{% endif %}>Planificada</option>
+              <option value="activa" {% if rueda.estado == 'activa' or not rueda.estado %}selected{% endif %}>Activa</option>
+              <option value="finalizada" {% if rueda.estado == 'finalizada' %}selected{% endif %}>Finalizada</option>
+              <option value="cancelada" {% if rueda.estado == 'cancelada' %}selected{% endif %}>Cancelada</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-info">
+            <i class="fas fa-save me-1"></i>Guardar cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Detalles Rueda de Negocio -->
+<div class="modal fade" id="detallesRuedaModal{{ rueda.id }}" tabindex="-1" aria-labelledby="detallesRuedaModalLabel{{ rueda.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="detallesRuedaModalLabel{{ rueda.id }}">
+          <i class="fas fa-info-circle me-2"></i>Detalles de Rueda de Negocio
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="fw-semibold">Información General</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span><strong>Tema:</strong></span>
+                <strong class="text-primary">{{ rueda.tema }}</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span><strong>Fecha:</strong></span>
+                <span>{{ rueda.fecha }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span><strong>Hora:</strong></span>
+                <span>{{ rueda.hora }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span><strong>Estado:</strong></span>
+                {% set estado = rueda.estado if rueda.estado else 'activa' %}
+                {% if estado == 'activa' %}
+                  <span class="badge bg-success">Activa</span>
+                {% elif estado == 'finalizada' %}
+                  <span class="badge bg-secondary">Finalizada</span>
+                {% elif estado == 'cancelada' %}
+                  <span class="badge bg-danger">Cancelada</span>
+                {% else %}
+                  <span class="badge bg-warning">Planificada</span>
+                {% endif %}
+              </li>
+              {% if rueda.link %}
+              <li class="list-group-item">
+                <span><strong>Link:</strong></span><br>
+                <a href="{{ rueda.link }}" target="_blank" class="text-break">{{ rueda.link }}</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6 class="fw-semibold">Información del Creador</h6>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  {% if rueda.userPhotoUrl %}
+                  <img src="{{ rueda.userPhotoUrl }}" class="rounded-circle me-3" width="50" height="50" alt="{{ rueda.userName }}">
+                  {% else %}
+                  <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="fas fa-user text-white"></i>
+                  </div>
+                  {% endif %}
+                  <div>
+                    <h6 class="mb-1">{{ rueda.userName }}</h6>
+                    <p class="text-muted mb-0">{{ rueda.userEmprendimiento }}</p>
+                  </div>
+                </div>
+                <small class="text-muted"><strong>User ID:</strong> {{ rueda.userId }}</small>
+              </div>
+            </div>
+            
+            <h6 class="fw-semibold mt-3">Asistentes ({{ rueda.asistentes|length }})</h6>
+            {% if rueda.asistentes and rueda.asistentes|length > 0 %}
+              <div class="participants-list" style="max-height: 150px; overflow-y: auto;">
+                {% for asistente_id in rueda.asistentes %}
+                  <div class="d-flex align-items-center mb-2 p-2 border rounded">
+                    <i class="fas fa-user-circle text-muted me-2"></i>
+                    <div>
+                      <div class="small fw-semibold">Usuario ID:</div>
+                      <code class="small">{{ asistente_id }}</code>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="text-muted">No hay asistentes registrados</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h6 class="fw-semibold">Descripción Completa</h6>
+            <div class="card">
+              <div class="card-body">
+                <p class="mb-0">{{ rueda.descripcion }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Rueda de Negocio -->
+<div class="modal fade" id="eliminarRuedaModal{{ rueda.id }}" tabindex="-1" aria-labelledby="eliminarRuedaModalLabel{{ rueda.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="eliminarRuedaModalLabel{{ rueda.id }}">
+          <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="fas fa-handshake-slash text-danger fa-3x mb-3"></i>
+          <h5>¿Está seguro de eliminar esta rueda de negocio?</h5>
+          <div class="alert alert-warning mt-3">
+            <strong>Advertencia:</strong> Esta acción eliminará la rueda de negocio "{{ rueda.tema }}" y todos los datos asociados.
+          </div>
+          <div class="alert alert-info mt-2">
+            <small><strong>ID:</strong> {{ rueda.id }}</small>
+          </div>
+          <p class="text-muted">Esta acción no se puede deshacer.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form method="POST" action="{{ url_for('dashboard.eliminar_rueda_dashboard', rueda_id=rueda.id) }}" style="display:inline;">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash me-1"></i>Eliminar Rueda
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Script Simple para el Dashboard -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Dashboard cargado correctamente');
+    
+    // Prevenir envío doble de formularios
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Procesando...';
+                
+                // Re-enable after 5 seconds (fallback)
+                setTimeout(() => {
+                    if (submitBtn.disabled) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-save me-1"></i>Guardar cambios';
+                    }
+                }, 5000);
+            }
+        });
+    });
+    
+    // Auto-ocultar alertas después de 5 segundos
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+        setTimeout(() => {
+            if (alert.parentNode) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }
+        }, 5000);
+    });
+    
+    // Validación básica de formularios
+    const validateForm = (form) => {
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+                
+                if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('invalid-feedback')) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'invalid-feedback';
+                    errorDiv.textContent = 'Este campo es obligatorio';
+                    field.parentNode.appendChild(errorDiv);
+                }
+            } else {
+                field.classList.remove('is-invalid');
+                const errorDiv = field.parentNode.querySelector('.invalid-feedback');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+            }
+        });
+        
+        return isValid;
+    };
+    
+    // Agregar validación a botones de guardar
+    const saveButtons = document.querySelectorAll('.modal-footer .btn-primary, .modal-footer .btn-success, .modal-footer .btn-info');
+    saveButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const form = this.closest('form');
+            if (form && !validateForm(form)) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Por favor, complete todos los campos obligatorios');
+            }
+        });
+    });
+});
+</script>
+
+<style>
+/* Estilos mínimos para el dashboard */
+.stat-card {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.stat-icon-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Asegurar que los modales se vean correctamente */
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.modal {
+    z-index: 1050 !important;
+}
+
+/* Estilos para tablas */
+.table th {
+    border-top: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Text truncation con tooltip */
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+}
+
+/* Mejoras para badges */
+.badge {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Tooltips personalizados */
+.btn {
+    position: relative;
+}
+
+/* Hover effects */
+.user-row:hover,
+.publication-row:hover,
+.comment-row:hover,
+.rueda-row:hover {
+    background-color: rgba(52, 152, 219, 0.05) !important;
+    transition: all 0.3s ease;
+}
+
+/* Estilos para imágenes */
+.user-avatar img,
+.publication-image img {
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.user-avatar img:hover,
+.publication-image img:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card .card-body {
+        text-align: center;
+    }
+    
+    .stat-icon-container {
+        margin: 0 auto 0.5rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .text-truncate {
+        max-width: 120px !important;
+    }
+}
+</style>
 
 {% endblock %}

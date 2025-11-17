@@ -1,7 +1,8 @@
 from config.firebase_config import get_db, init_firebase
+from google.cloud import firestore
 
 def get_dashboard_data():
-    """Obtiene todos los datos para el dashboard - VERSIÓN CORREGIDA"""
+    """Obtiene todos los datos para el dashboard - VERSIÓN CON CAMPOS REALES"""
     # Asegurarnos de que Firebase esté inicializado
     if not init_firebase():
         print("❌ No se pudo inicializar Firebase")
@@ -108,7 +109,7 @@ def get_dashboard_data():
             print(f"❌ Error cargando comentarios: {e}")
             total_comentarios = 0
 
-        # --- Ruedas de Negocio ---
+        # --- Ruedas de Negocio --- CON CAMPOS REALES
         ruedas = []
         try:
             print("🔍 Buscando colección 'RuedaNegocio'...")
@@ -118,17 +119,25 @@ def get_dashboard_data():
             doc_count = 0
             for doc in ruedas_docs:
                 data = doc.to_dict()
-                nombre = data.get('nombre', 'Sin nombre')
-                print(f"📄 Rueda {doc_count + 1}: {nombre}")
+                tema = data.get('tema', 'Sin tema')
+                print(f"📄 Rueda {doc_count + 1}: {tema}")
+                
                 ruedas.append({
                     'id': doc.id,
-                    'nombre': nombre,
-                    'fecha': data.get('fecha', ''),
+                    'tema': tema,
                     'descripcion': data.get('descripcion', ''),
-                    'participantes': data.get('participantes', []),
+                    'fecha': data.get('fecha', ''),
+                    'hora': data.get('hora', ''),
+                    'link': data.get('link', ''),
+                    'asistentes': data.get('asistentes', []),
                     'estado': data.get('estado', 'activa'),
-                    'creado_por': data.get('creado_por', ''),
-                    'fecha_creacion': data.get('fecha_creacion', '')
+                    'userName': data.get('userName', ''),
+                    'userEmprendimiento': data.get('userEmprendimiento', ''),
+                    'userId': data.get('userId', ''),
+                    'userPhotoUrl': data.get('userPhotoUrl', ''),
+                    'fechaCreacion': data.get('fechaCreacion', ''),
+                    'fechaActualizacion': data.get('fechaActualizacion', ''),
+                    'fechaCompleta': data.get('fechaCompleta', '')
                 })
                 doc_count += 1
                 
@@ -217,12 +226,15 @@ def update_publicacion(pub_id, data):
         return False
 
 def update_rueda(rueda_id, data):
-    """Actualiza una rueda de negocio en Firebase"""
+    """Actualiza una rueda de negocio en Firebase - CON CAMPOS REALES"""
     db_firestore = get_db()
     if not db_firestore:
         print("❌ No hay conexión a Firebase")
         return False
     try:
+        # Agregar fecha de actualización
+        data['fechaActualizacion'] = firestore.SERVER_TIMESTAMP
+        
         db_firestore.collection('RuedaNegocio').document(rueda_id).update(data)
         print(f"✅ Rueda {rueda_id} actualizada")
         return True
@@ -245,15 +257,140 @@ def agregar_usuario(data):
         return False
 
 def agregar_rueda(data):
-    """Agrega una nueva rueda de negocio a Firebase"""
+    """Agrega una nueva rueda de negocio a Firebase - CON CAMPOS REALES"""
     db_firestore = get_db()
     if not db_firestore:
         print("❌ No hay conexión a Firebase")
         return False
     try:
+        # Agregar timestamps
+        data['fechaCreacion'] = firestore.SERVER_TIMESTAMP
+        data['fechaActualizacion'] = firestore.SERVER_TIMESTAMP
+        
         db_firestore.collection('RuedaNegocio').add(data)
         print("✅ Nueva rueda de negocio agregada")
         return True
     except Exception as e:
         print(f"❌ Error agregando rueda: {e}")
+        return False
+
+def eliminar_usuario_completamente(user_id):
+    """Elimina completamente un usuario y todo su rastro en la base de datos"""
+    db_firestore = get_db()
+    if not db_firestore:
+        print("❌ No hay conexión a Firebase")
+        return False
+    
+    try:
+        print(f"🗑️ INICIANDO ELIMINACIÓN COMPLETA del usuario: {user_id}")
+        
+        # 1. ELIMINAR PUBLICACIONES DEL USUARIO
+        print("📝 Buscando publicaciones del usuario...")
+        publicaciones_ref = db_firestore.collection('Publicacion')
+        publicaciones_usuario = publicaciones_ref.where('userId', '==', user_id).stream()
+        
+        publicaciones_eliminadas = 0
+        for pub in publicaciones_usuario:
+            # Eliminar comentarios de esta publicación
+            comentarios_ref = db_firestore.collection('Comentarios')
+            comentarios_publicacion = comentarios_ref.where('publicacionId', '==', pub.id).stream()
+            
+            comentarios_eliminados = 0
+            for comentario in comentarios_publicacion:
+                comentario.reference.delete()
+                comentarios_eliminados += 1
+            
+            # Eliminar la publicación
+            pub.reference.delete()
+            publicaciones_eliminadas += 1
+            print(f"   🗑️ Publicación {pub.id} eliminada (+ {comentarios_eliminados} comentarios)")
+        
+        # 2. ELIMINAR COMENTARIOS DEL USUARIO
+        print("💬 Buscando comentarios del usuario...")
+        comentarios_ref = db_firestore.collection('Comentarios')
+        comentarios_usuario = comentarios_ref.where('usuarioId', '==', user_id).stream()
+        
+        comentarios_eliminados = 0
+        for comentario in comentarios_usuario:
+            comentario.reference.delete()
+            comentarios_eliminados += 1
+        print(f"   🗑️ {comentarios_eliminados} comentarios eliminados")
+        
+        # 3. ELIMINAR RUEDAS DE NEGOCIO CREADAS POR EL USUARIO
+        print("🤝 Buscando ruedas de negocio del usuario...")
+        ruedas_ref = db_firestore.collection('RuedaNegocio')
+        ruedas_usuario = ruedas_ref.where('userId', '==', user_id).stream()
+        
+        ruedas_eliminadas = 0
+        for rueda in ruedas_usuario:
+            rueda.reference.delete()
+            ruedas_eliminadas += 1
+        print(f"   🗑️ {ruedas_eliminadas} ruedas de negocio eliminadas")
+        
+        # 4. ELIMINAR AL USUARIO DE LISTAS DE ASISTENTES EN RUEDAS
+        print("👥 Eliminando usuario de listas de asistentes...")
+        todas_ruedas = ruedas_ref.stream()
+        ruedas_actualizadas = 0
+        
+        for rueda in todas_ruedas:
+            rueda_data = rueda.to_dict()
+            asistentes = rueda_data.get('asistentes', [])
+            
+            if user_id in asistentes:
+                nuevos_asistentes = [a for a in asistentes if a != user_id]
+                rueda.reference.update({'asistentes': nuevos_asistentes})
+                ruedas_actualizadas += 1
+        
+        print(f"   🔄 Usuario removido de {ruedas_actualizadas} ruedas como asistente")
+        
+        # 5. ELIMINAR LIKES DEL USUARIO EN PUBLICACIONES
+        print("❤️ Eliminando likes del usuario en publicaciones...")
+        todas_publicaciones = db_firestore.collection('Publicacion').stream()
+        publicaciones_actualizadas = 0
+        
+        for pub in todas_publicaciones:
+            pub_data = pub.to_dict()
+            likes = pub_data.get('likes', [])
+            
+            if user_id in likes:
+                nuevos_likes = [l for l in likes if l != user_id]
+                pub.reference.update({'likes': nuevos_likes})
+                publicaciones_actualizadas += 1
+        
+        print(f"   🔄 Likes eliminados de {publicaciones_actualizadas} publicaciones")
+        
+        # 6. ELIMINAR LIKES DEL USUARIO EN COMENTARIOS
+        print("💖 Eliminando likes del usuario en comentarios...")
+        todos_comentarios = db_firestore.collection('Comentarios').stream()
+        comentarios_actualizados = 0
+        
+        for comentario in todos_comentarios:
+            comentario_data = comentario.to_dict()
+            likes_comentarios = comentario_data.get('likes_Comentarios', [])
+            
+            if user_id in likes_comentarios:
+                nuevos_likes_comentarios = [l for l in likes_comentarios if l != user_id]
+                comentario.reference.update({'likes_Comentarios': nuevos_likes_comentarios})
+                comentarios_actualizados += 1
+        
+        print(f"   🔄 Likes eliminados de {comentarios_actualizados} comentarios")
+        
+        # 7. FINALMENTE ELIMINAR EL USUARIO
+        print("👤 Eliminando usuario principal...")
+        db_firestore.collection('Usuario').document(user_id).delete()
+        
+        # RESUMEN FINAL
+        print(f"\n🎉 ELIMINACIÓN COMPLETA EXITOSA:")
+        print(f"   📝 Publicaciones eliminadas: {publicaciones_eliminadas}")
+        print(f"   💬 Comentarios eliminados: {comentarios_eliminados}")
+        print(f"   🤝 Ruedas eliminadas: {ruedas_eliminadas}")
+        print(f"   👥 Ruedas actualizadas (asistente): {ruedas_actualizadas}")
+        print(f"   ❤️ Publicaciones con likes removidos: {publicaciones_actualizadas}")
+        print(f"   💖 Comentarios con likes removidos: {comentarios_actualizados}")
+        print(f"   👤 Usuario principal: ELIMINADO")
+        
+        return True
+        
+    except Exception as e:
+        print(f"💥 ERROR en eliminación completa: {e}")
         return False

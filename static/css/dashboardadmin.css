@@ -1,4 +1,4 @@
-/* dashboard.css - Estilos para el Dashboard Administrativo */
+/* dashboard.css - Estilos corregidos para el Dashboard Administrativo */
 
 :root {
   --primary-color: #2c3e50;
@@ -12,6 +12,43 @@
   --border-radius: 12px;
   --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+}
+
+/* Estilos para modales y overlay - CORREGIDOS */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  z-index: 1040 !important;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5 !important;
+}
+
+/* Corregir pantalla opaca */
+body.modal-open {
+  overflow: hidden;
+  padding-right: 0 !important;
+}
+
+/* Prevenir fondo oscuro duplicado */
+.modal-backdrop:not(.show) {
+  opacity: 0 !important;
+}
+
+/* Mejorar visibilidad del modal */
+.modal-dialog {
+  margin: 1.75rem auto;
+}
+
+.modal-content {
+  background-color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos para tarjetas de estadísticas */
@@ -72,6 +109,7 @@
 .user-avatar img,
 .publication-image img {
   transition: var(--transition);
+  object-fit: cover;
 }
 
 .user-avatar img:hover,
@@ -111,7 +149,7 @@
   color: white;
 }
 
-/* Modales */
+/* Modales corregidos */
 .modal-content {
   border-radius: var(--border-radius);
   border: none;
@@ -130,6 +168,28 @@
 .modal-footer {
   padding: 1rem 1.5rem;
   border-top: 1px solid #dee2e6;
+}
+
+/* Loading states mejorados */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Corregir problemas de z-index */
+.card {
+  position: relative;
+  z-index: 1;
+}
+
+.table-responsive {
+  position: relative;
+  z-index: 1;
+}
+
+/* Estilos específicos para botones de modal */
+.modal-footer .btn {
+  min-width: 100px;
 }
 
 /* Texto truncado */
@@ -162,8 +222,17 @@
   border-radius: 3px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Asegurar que los modales se vean bien en móviles */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+  
+  .modal-content {
+    border-radius: 8px;
+  }
+  
   .stat-card .card-body {
     text-align: center;
   }
@@ -191,6 +260,17 @@
   .rueda-desc {
     max-width: 150px;
   }
+}
+
+/* Corregir problemas de scroll */
+.modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+  padding-right: 0 !important;
 }
 
 /* Animaciones */
@@ -274,6 +354,7 @@
 .loading {
   opacity: 0.7;
   pointer-events: none;
+  position: relative;
 }
 
 .loading::after {
@@ -295,6 +376,19 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Validación de formularios */
+.is-invalid {
+  border-color: #e74c3c !important;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #e74c3c;
+}
+
 /* Mejoras de accesibilidad */
 .sr-only {
   position: absolute;
@@ -314,4 +408,24 @@
 .form-select:focus {
   box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
   border-color: var(--accent-color);
+  outline: none;
+}
+
+/* Efectos de transición suaves */
+* {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Prevenir desbordamientos */
+.container-fluid {
+  overflow-x: hidden;
+}
+
+/* Estilos para mensajes de sistema */
+.system-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 300px;
 }

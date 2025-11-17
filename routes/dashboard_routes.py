@@ -1,10 +1,18 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from services.dashboard_service import get_dashboard_data
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from services.dashboard_service import get_dashboard_data, update_usuario, update_publicacion, update_rueda, eliminar_usuario_completamente
+from config.firebase_config import get_db
+from google.cloud import firestore
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
 @dashboard_bp.route('/dashboard')
 def dashboard():
+    # Verificar si el usuario está autenticado como admin
+    # COMENTADO TEMPORALMENTE PARA DESARROLLO - QUITAR EL 'auth.login' QUE NO EXISTE
+    # if 'user' not in session or session.get('user_role') != 'admin':
+    #     flash('Acceso denegado. Debes iniciar sesión como administrador.', 'error')
+    #     return redirect(url_for('main.inicio'))  # Redirigir a la página principal
+    
     # Usar el servicio para obtener datos
     dashboard_data = get_dashboard_data()
     
@@ -29,8 +37,6 @@ def dashboard():
 
 @dashboard_bp.route('/editar_usuario_dashboard/<user_id>', methods=['POST'])
 def editar_usuario_dashboard(user_id):
-    from services.dashboard_service import update_usuario
-    
     nombre = request.form.get('nombre', '').strip()
     correo = request.form.get('correo', '').strip()
     numero = request.form.get('numero', '').strip()
@@ -56,28 +62,22 @@ def editar_usuario_dashboard(user_id):
 
 @dashboard_bp.route('/eliminar_usuario_dashboard/<user_id>', methods=['POST'])
 def eliminar_usuario_dashboard(user_id):
-    from config.firebase_config import get_db
-    
-    db_firestore = get_db()
-    if not db_firestore:
-        flash('Error de conexión con Firebase', 'error')
-        return redirect(url_for('dashboard.dashboard'))
-    
     try:
-        print(f"🗑️ Eliminando usuario: {user_id}")
-        db_firestore.collection('Usuario').document(user_id).delete()
-        flash('✅ Usuario eliminado correctamente', 'success')
+        print(f"🗑️ SOLICITUD DE ELIMINACIÓN COMPLETA para usuario: {user_id}")
+        
+        if eliminar_usuario_completamente(user_id):
+            flash('✅ Usuario y todo su contenido eliminado completamente', 'success')
+        else:
+            flash('❌ Error al eliminar el usuario completamente', 'error')
         
     except Exception as e:
-        flash(f'❌ Error al eliminar el usuario: {str(e)}', 'error')
-        print(f"❌ Error eliminando usuario {user_id}: {e}")
+        flash(f'❌ Error crítico al eliminar el usuario: {str(e)}', 'error')
+        print(f"💥 Error eliminando usuario {user_id}: {e}")
     
     return redirect(url_for('dashboard.dashboard'))
 
 @dashboard_bp.route('/editar_publicacion_dashboard/<pub_id>', methods=['POST'])
 def editar_publicacion_dashboard(pub_id):
-    from services.dashboard_service import update_publicacion
-    
     descripcion = request.form.get('descripcion', '').strip()
     url_Imagen = request.form.get('url_Imagen', '').strip()
 
@@ -99,8 +99,6 @@ def editar_publicacion_dashboard(pub_id):
 
 @dashboard_bp.route('/eliminar_publicacion_dashboard/<pub_id>', methods=['POST'])
 def eliminar_publicacion_dashboard(pub_id):
-    from config.firebase_config import get_db
-    
     db_firestore = get_db()
     if not db_firestore:
         flash('Error de conexión con Firebase', 'error')
@@ -119,21 +117,25 @@ def eliminar_publicacion_dashboard(pub_id):
 
 @dashboard_bp.route('/editar_rueda_dashboard/<rueda_id>', methods=['POST'])
 def editar_rueda_dashboard(rueda_id):
-    from services.dashboard_service import update_rueda
-    
-    nombre = request.form.get('nombre', '').strip()
-    fecha = request.form.get('fecha', '')
+    # Obtener todos los campos reales del formulario
+    tema = request.form.get('tema', '').strip()
     descripcion = request.form.get('descripcion', '').strip()
+    fecha = request.form.get('fecha', '')
+    hora = request.form.get('hora', '')
+    link = request.form.get('link', '').strip()
     estado = request.form.get('estado', 'activa')
     
-    if not nombre or not fecha or not descripcion:
-        flash('Nombre, fecha y descripción son obligatorios', 'error')
+    # Validar campos obligatorios
+    if not tema or not descripcion or not fecha or not hora:
+        flash('Tema, descripción, fecha y hora son obligatorios', 'error')
         return redirect(url_for('dashboard.dashboard'))
 
     update_data = {
-        'nombre': nombre,
-        'fecha': fecha,
+        'tema': tema,
         'descripcion': descripcion,
+        'fecha': fecha,
+        'hora': hora,
+        'link': link,
         'estado': estado
     }
 
@@ -146,8 +148,6 @@ def editar_rueda_dashboard(rueda_id):
 
 @dashboard_bp.route('/eliminar_rueda_dashboard/<rueda_id>', methods=['POST'])
 def eliminar_rueda_dashboard(rueda_id):
-    from config.firebase_config import get_db
-    
     db_firestore = get_db()
     if not db_firestore:
         flash('Error de conexión con Firebase', 'error')
@@ -166,8 +166,6 @@ def eliminar_rueda_dashboard(rueda_id):
 
 @dashboard_bp.route('/eliminar_comentario_dashboard/<comentario_id>', methods=['POST'])
 def eliminar_comentario_dashboard(comentario_id):
-    from config.firebase_config import get_db
-    
     db_firestore = get_db()
     if not db_firestore:
         flash('Error de conexión con Firebase', 'error')
@@ -186,6 +184,6 @@ def eliminar_comentario_dashboard(comentario_id):
 
 @dashboard_bp.route('/logout')
 def logout():
-    from flask import session
     session.clear()
+    flash('Sesión cerrada correctamente', 'success')
     return redirect(url_for('main.inicio'))
