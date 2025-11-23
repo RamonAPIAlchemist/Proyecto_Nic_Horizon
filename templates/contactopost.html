@@ -142,6 +142,8 @@
       </div>
     </div>
 
+   
+
     <!-- Arlinton Ramón Mayorga Marin -->
     <div class="col-md-4">
       <div class="card team-card shadow-custom">
@@ -175,6 +177,55 @@
     </div>
   </div>
 </div>
+
+
+<!-- Equipo de Investigación -->
+<div class="container mb-5">
+  <div class="section-header">
+    <i class="fas fa-flask section-icon"></i>
+    <h3 class="section-title">Equipo de Investigación</h3>
+    <p class="section-description">Encargados del análisis, pruebas y validación de información</p>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card team-card shadow-custom">
+        <div class="card-img-container">
+          <div class="team-img-real">
+            <img src="{{ url_for('static', filename='josemiguel.jpg') }}" 
+                 alt="Nombre del Investigador"
+                 class="team-photo"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <div class="team-img-placeholder" style="display: none;">
+              <i class="fas fa-user-circle img-icon"></i>
+            </div>
+          </div>
+          <div class="team-role-badge">Investigador / Analista</div>
+        </div>
+
+        <div class="card-body text-center">
+          <h5 class="team-member-name">José Miguel Pichardo Pérez</h5>
+          <p class="team-member-role">Investigador y Tester</p>
+          
+          <p class="team-member-description">
+            Especialista en análisis de datos, validación de información y elaboración de reportes técnicos. 
+            Su trabajo asegura que cada decisión del proyecto esté basada en evidencia sólida y verificable.
+          </p>
+
+          <div class="team-skills">
+            <span class="skill-tag">Metodología</span>
+            <span class="skill-tag">Análisis de Datos</span>
+            <span class="skill-tag">Documentación</span>
+            <span class="skill-tag">Estadística</span>
+            <span class="skill-tag">Pruebas & Testeo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Equipo de Diseño -->
 <div class="container mb-5">
