@@ -2,6 +2,7 @@ from flask import Flask
 from config.firebase_config import init_firebase
 from routes.main_routes import main_bp
 from routes.dashboard_routes import dashboard_bp
+from auth_bp import auth_bp
 
 def create_app():
     app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -13,6 +14,7 @@ def create_app():
     # Registrar blueprints
     app.register_blueprint(main_bp)
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(auth_bp, url_prefix='/auth')
 
     return app
 

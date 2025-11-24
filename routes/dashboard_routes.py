@@ -8,12 +8,35 @@ dashboard_bp = Blueprint('dashboard', __name__)
 @dashboard_bp.route('/dashboard')
 def dashboard():
     # Verificar si el usuario está autenticado como admin
-    # COMENTADO TEMPORALMENTE PARA DESARROLLO - QUITAR EL 'auth.login' QUE NO EXISTE
-    # if 'user' not in session or session.get('user_role') != 'admin':
-    #     flash('Acceso denegado. Debes iniciar sesión como administrador.', 'error')
-    #     return redirect(url_for('main.inicio'))  # Redirigir a la página principal
+    if 'user' not in session:
+        flash('Acceso denegado. Debes iniciar sesión para acceder al dashboard.', 'error')
+        return redirect(url_for('auth.login'))  # Redirigir al login
+    
+    if session.get('user_role') != 'admin':
+        flash('Acceso denegado. No tienes permisos de administrador.', 'error')
+        return redirect(url_for('main.inicio'))  # Redirigir a la página principal
     
     # Usar el servicio para obtener datos
+    dashboard_data = get_dashboard_data()
+    
+    if not dashboard_data:
+        flash('Error al cargar los datos del dashboard', 'error')
+        return render_template('dashboardadmin.html')
+    
+    return render_template(
+        'dashboardadmin.html',
+        usuarios=dashboard_data["usuarios"],
+        publicaciones=dashboard_data["publicaciones"],
+        comentarios=dashboard_data["comentarios"],
+        ruedas=dashboard_data["ruedas"],
+        total_usuarios=dashboard_data["total_usuarios"],
+        total_publicaciones=dashboard_data["total_publicaciones"],
+        total_comentarios=dashboard_data["total_comentarios"],
+        total_productos=dashboard_data["total_productos"],
+        total_ruedas=dashboard_data["total_ruedas"]
+    )
+    
+    #####Usar el servicio para obtener datos
     dashboard_data = get_dashboard_data()
     
     if not dashboard_data:
@@ -184,6 +207,20 @@ def eliminar_comentario_dashboard(comentario_id):
 
 @dashboard_bp.route('/logout')
 def logout():
+    """Cierra sesión y redirige adecuadamente"""
+    # Guardar información de la sesión antes de limpiar (opcional)
+    user_email = session.get('user', {}).get('email', 'Usuario')
+    
+    # Limpiar toda la sesión
     session.clear()
-    flash('Sesión cerrada correctamente', 'success')
-    return redirect(url_for('main.inicio'))
+    
+    # Mostrar mensaje de confirmación
+    flash(f'Sesión cerrada correctamente. ¡Hasta pronto, {user_email}!', 'success')
+    
+    # Redirigir al inicio principal O al login
+    try:
+        # Intenta redirigir al inicio principal si existe
+        return redirect(url_for('main.inicio'))
+    except:
+        # Si no existe 'main.inicio', redirige al login
+        return redirect(url_for('auth.login'))

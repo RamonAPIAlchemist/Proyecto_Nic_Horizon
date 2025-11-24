@@ -4,6 +4,7 @@ class DashboardManager {
     constructor() {
         this.init();
     }
+    
 
     init() {
         console.log('✅ Dashboard administrativo cargado correctamente');

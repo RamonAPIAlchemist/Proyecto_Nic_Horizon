@@ -7,6 +7,8 @@ class DashboardManager {
         this.init();
     }
 
+    
+
     init() {
         if (this.initialized) {
             console.log('⚠️ Dashboard ya inicializado');
@@ -466,6 +468,8 @@ class DashboardManager {
         
         return true;
     }
+
+    
 
     // Verificar IDs de formularios
     verifyFormIds(forms) {
